@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Juego Reciclar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <style>
+        .card {
+            -webkit-box-shadow: 0px -3px 23px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px -3px 23px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px -3px 23px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .vidrio { background-color: #52be80; }
+        .papel { background-color: #2e86c1; }        
+        .organico { background-color: #d35400; }
+    </style>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card text-center vidrio" style="height: 15rem;">
+                    <div id="vidrio" class="card-body" ondrop="DropImg(event)" ondragenter="return false" ondragover="return false">
+                        <h5 class="card-title">Vidrio</h5>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center papel" style="height: 15rem;">
+                    <div id="papel" class="card-body" ondrop="DropImg(event)" ondragenter="return false" ondragover="return false">
+                        <h5 class="card-title text-center">Papel</h5>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center organico" style="height: 15rem;">
+                    <div id="organico" class="card-body" ondrop="DropImg(event)" ondragenter="return false" ondragover="return false">
+                        <h5 class="card-title text-center">Orgánico</h5>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="card text-center">
+                    <div id="divImg" class="card-body">
+                        <img id="1" class="rounded" draggable="true" ondragstart="DragImg(event)" alt="vidrio" src="./img/lager.jpg">
+                        <img id="2" class="rounded" draggable="true" ondragstart="DragImg(event)" alt="papel" src="./img/libro.jpeg">
+                        <img id="3" class="rounded" draggable="true" ondragstart="DragImg(event)" alt="organico" src="./img/naranja.jpg">
+                        <img id="4" class="rounded" draggable="true" ondragstart="DragImg(event)" alt="papel" src="./img/papel.jpg">
+                        <img id="5" class="rounded" draggable="true" ondragstart="DragImg(event)" alt="organico" src="./img/pera.jpg">
+                        <img id="6" class="rounded" draggable="true" ondragstart="DragImg(event)" alt="vidrio" src="./img/vino.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">                
+                <button type="button" class="btn btn-outline-info btn-block" style="display: none;">Reiniciar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const divImg = document.querySelector("#divImg")
+        const buttonReiniciar = document.querySelector("button")
+
+        const DragImg = (event) => event.dataTransfer.setData("ImageID", event.target.id)
+
+        const DropImg = (event) => {
+            event.preventDefault();
+            let img = document.getElementById(event.dataTransfer.getData("ImageID"))
+            let div = event.target
+            
+            if (div.id === img.alt) div.appendChild(img);
+
+            comprobarFinal()
+        }
+
+        const comprobarFinal = ()  =>{
+            if (divImg.children.length === 0) 
+            {
+                divImg.append("Has recilado todo correctamente")
+                buttonReiniciar.style.display = "block"
+            }
+                
+        }
+
+        buttonReiniciar.addEventListener("click", () => document.location.reload())
+    </script>
+</body>
+</html>
